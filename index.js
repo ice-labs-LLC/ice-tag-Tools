@@ -1,29 +1,26 @@
 const { Client } = require('revolt.js');
 require('dotenv').config();
 
-// We add 'MessageContent' to the fetch intents
+// CRITICAL: You must include these intents for the bot to "hear" you
 const client = new Client({
     intents: ['MessageContent', 'GuildMessages', 'DirectMessages']
 });
 
 client.on('ready', () => {
-    console.log(`✅ Logged in as ${client.user.username}!`);
+    console.log(`✅ ${client.user.username} is now monitoring Stoat!`);
 });
 
-// Changed 'message' to 'messageCreate'
+// Using 'messageCreate' is the modern standard for Revolt/Stoat
 client.on('messageCreate', async (message) => {
-    // Debug: This will show in your PM2 logs if ANY message is seen
-    console.log(`Received: ${message.content}`);
-
     if (message.author_id === client.user._id) return;
 
-    const input = message.content.toLowerCase().trim();
+    const cmd = message.content.toLowerCase().trim();
 
-    if (input === '!ping') {
+    if (cmd === '!ping') {
         await message.reply('Pong! 🦫');
     }
 
-    if (input === '/link') {
+    if (cmd === '/link') {
         await message.reply('This is an unreleased feature and will come in the future.');
     }
 });
