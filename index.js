@@ -1,23 +1,29 @@
 const { Client } = require('revolt.js');
 require('dotenv').config();
 
-const client = new Client();
-
-client.on('ready', () => {
-    console.log(`Logged in as ${client.user.username}!`);
+// We add 'MessageContent' to the fetch intents
+const client = new Client({
+    intents: ['MessageContent', 'GuildMessages', 'DirectMessages']
 });
 
-client.on('message', async (message) => {
-    // 1. Safety check: Ignore messages from the bot itself
+client.on('ready', () => {
+    console.log(`✅ Logged in as ${client.user.username}!`);
+});
+
+// Changed 'message' to 'messageCreate'
+client.on('messageCreate', async (message) => {
+    // Debug: This will show in your PM2 logs if ANY message is seen
+    console.log(`Received: ${message.content}`);
+
     if (message.author_id === client.user._id) return;
 
-    // 2. Simple !ping command
-    if (message.content === '!ping') {
+    const input = message.content.toLowerCase().trim();
+
+    if (input === '!ping') {
         await message.reply('Pong! 🦫');
     }
 
-    // 3. The /link command
-    if (message.content === '/link') {
+    if (input === '/link') {
         await message.reply('This is an unreleased feature and will come in the future.');
     }
 });
