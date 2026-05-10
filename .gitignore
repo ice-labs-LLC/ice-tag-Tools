@@ -1,0 +1,14 @@
+# Security: Do NOT track environment variables
+.env
+
+# Dependencies: No need to upload these; they are rebuilt via npm install
+node_modules/
+
+# macOS system files
+.DS_Store
+
+# Build files (if you eventually compile your bot)
+dist/
+build/
+# JetBrains Crap
+.idea/
