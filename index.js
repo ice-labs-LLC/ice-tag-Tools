@@ -1,7 +1,6 @@
 const { Client } = require('revolt.js');
 require('dotenv').config();
 
-// This line defines "client" so the error goes away
 const client = new Client({
     intents: ['MessageContent', 'GuildMessages', 'DirectMessages']
 });
